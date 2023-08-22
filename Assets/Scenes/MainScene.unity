@@ -258,7 +258,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 3
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -353,6 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885b77cd5bfbf4249a077579a5b5905c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  torqueForce: -10
+  jumpForce: 6.5
 --- !u!114 &470829356
 MonoBehaviour:
   m_ObjectHideFlags: 0
