@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(string.Format("[Horizontal: {0}] [Vertical: {1}] [isJump {2}] ", this.inputHorizontal, this.inputVertical, this.inputJump));
+        //Debug.Log(string.Format("[Horizontal: {0}] [Vertical: {1}] [isJump {2}] ", this.inputHorizontal, this.inputVertical, this.inputJump));
 
         // Player rotation
         //this.transform.Rotate(new Vector3(0, 0, (this.inputHorizontal * this.rotateVelocity)), Space.Self);
@@ -41,4 +41,9 @@ public class PlayerController : MonoBehaviour
             this.inputJump = false;
         }
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    Debug.Log("PlayerController.OnTriggerEnter2D");
+    //}
 }
