@@ -1,10 +1,16 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
+
+    [SerializeField] private GameObject gameCourse;
+    [SerializeField] private float reloadDelay;
+
     private Rigidbody2D rigidBody;
 
-    private float inputVertical;
+    //private float inputVertical;
     private float inputHorizontal;
     private bool inputJump;
 
@@ -19,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        this.inputVertical = Input.GetAxisRaw("Vertical");
+        //this.inputVertical = Input.GetAxisRaw("Vertical");
         this.inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space)) this.inputJump = true;
     }
@@ -36,14 +42,25 @@ public class PlayerController : MonoBehaviour
         // Player jump
         if (this.inputJump)
         {
-            Debug.Log("Jumping");
+            //Debug.Log("Jumping");
             this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
             this.inputJump = false;
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Debug.Log("PlayerController.OnTriggerEnter2D");
-    //}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(string.Format("PlayerController.OnTriggerEnter2D {0} {1}", other.gameObject, this.gameCourse.gameObject));
+
+        //if (other.gameObject.Equals(this.gameCourse.gameObject))
+        if (other.tag == "Ground")
+        {
+            Invoke("reloadScene", this.reloadDelay);
+        }
+    }
+
+    private void reloadScene()
+    {
+        SceneManager.LoadScene("Scene0");
+    }
 }

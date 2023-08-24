@@ -313,7 +313,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470829348}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -353,6 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 885b77cd5bfbf4249a077579a5b5905c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameCourse: {fileID: 1785161998}
+  reloadDelay: 0.15
   torqueForce: -10
   jumpForce: 6.5
 --- !u!114 &470829356
@@ -858,7 +860,7 @@ Transform:
   m_GameObject: {fileID: 991482929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7206726, y: 1.82, z: -10}
+  m_LocalPosition: {x: 4.7087755, y: 1.82, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -971,7 +973,7 @@ Transform:
   m_GameObject: {fileID: 1273592822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.95, y: 1.73, z: 0}
+  m_LocalPosition: {x: 127.43, y: -10.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -991,6 +993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 470829348}
+  reloadDelay: 2
 --- !u!1 &1510610364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,8 +1041,8 @@ GameObject:
   - component: {fileID: 1785162002}
   - component: {fileID: 1785162003}
   m_Layer: 0
-  m_Name: Level Sprite Shape
-  m_TagString: Untagged
+  m_Name: Course
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

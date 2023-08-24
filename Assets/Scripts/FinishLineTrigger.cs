@@ -1,20 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishLineTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject player;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    [SerializeField] private float reloadDelay;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,11 +13,12 @@ public class FinishLineTrigger : MonoBehaviour
         // Player collision with finish line
         if (other.gameObject.Equals(this.player))
         {
-            Debug.Log("Player collision with finish line");
+            Invoke("reloadScene", this.reloadDelay);
         }
-        else
-        {
-            //Debug.Log(string.Format("not equals: {0} {1}", other.gameObject, this.player));
-        }
+    }
+
+    private void reloadScene()
+    {
+        SceneManager.LoadScene("Scene0");
     }
 }
