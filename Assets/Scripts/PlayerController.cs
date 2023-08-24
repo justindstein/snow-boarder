@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour
 {
     // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
 
-    [SerializeField] private GameObject gameCourse;
     [SerializeField] private float reloadDelay;
 
     private Rigidbody2D rigidBody;
@@ -42,7 +41,6 @@ public class PlayerController : MonoBehaviour
         // Player jump
         if (this.inputJump)
         {
-            //Debug.Log("Jumping");
             this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
             this.inputJump = false;
         }
@@ -50,9 +48,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(string.Format("PlayerController.OnTriggerEnter2D {0} {1}", other.gameObject, this.gameCourse.gameObject));
+        Debug.Log(string.Format("PlayerController.OnTriggerEnter2D {0}", other.gameObject));
 
-        //if (other.gameObject.Equals(this.gameCourse.gameObject))
         if (other.tag == "Ground")
         {
             Invoke("reloadScene", this.reloadDelay);
