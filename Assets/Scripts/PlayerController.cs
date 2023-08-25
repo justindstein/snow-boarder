@@ -6,16 +6,17 @@ public class PlayerController : MonoBehaviour
     // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
 
     [SerializeField] private float reloadDelay;
+    [SerializeField] private ParticleSystem crashEffects;
+
+    //[SerializeField] private float rotateVelocity; // -2
+    [SerializeField] private float torqueForce; // -5
+    [SerializeField] private float jumpForce; // 7.5
 
     private Rigidbody2D rigidBody;
 
     //private float inputVertical;
     private float inputHorizontal;
     private bool inputJump;
-
-    //[SerializeField] private float rotateVelocity; // -2
-    [SerializeField] private float torqueForce; // -5
-    [SerializeField] private float jumpForce; // 7.5
 
     void Start()
     {
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.tag == "Ground")
         {
+            this.crashEffects.Play();
             Invoke("reloadScene", this.reloadDelay);
         }
     }

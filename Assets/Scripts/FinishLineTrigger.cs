@@ -5,6 +5,7 @@ public class FinishLineTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject player;
     [SerializeField] private float reloadDelay;
+    [SerializeField] private ParticleSystem finishEffects;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,6 +14,7 @@ public class FinishLineTrigger : MonoBehaviour
         // Player collision with finish line
         if (other.gameObject.Equals(this.player))
         {
+            finishEffects.Play();
             Invoke("reloadScene", this.reloadDelay);
         }
     }
