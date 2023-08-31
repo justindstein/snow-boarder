@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float reloadDelay;
     [SerializeField] private ParticleSystem crashEffects;
+    [SerializeField] private ParticleSystem jumpEffects;
 
     //[SerializeField] private float rotateVelocity; // -2
     [SerializeField] private float torqueForce; // -5
@@ -42,9 +43,15 @@ public class PlayerController : MonoBehaviour
         // Player jump
         if (this.inputJump)
         {
-            this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
-            this.inputJump = false;
+            this.jump();
         }
+    }
+
+    private void jump()
+    {
+        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
+        this.inputJump = false;
+        this.jumpEffects.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
