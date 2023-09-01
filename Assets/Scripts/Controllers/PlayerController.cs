@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,6 @@ public class PlayerController : MonoBehaviour
     // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
 
     [SerializeField] private float reloadDelay;
-    [SerializeField] private ParticleSystem crashEffects;
     [SerializeField] private ParticleSystem jumpEffects;
 
     //[SerializeField] private float rotateVelocity; // -2
@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigidBody;
 
-    //private float inputVertical;
     private float inputHorizontal;
     private bool inputJump;
 
@@ -52,21 +51,5 @@ public class PlayerController : MonoBehaviour
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
         this.inputJump = false;
         this.jumpEffects.Play();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log(string.Format("PlayerController.OnTriggerEnter2D {0}", other.gameObject));
-
-        if (other.tag == "Ground")
-        {
-            this.crashEffects.Play();
-            Invoke("reloadScene", this.reloadDelay);
-        }
-    }
-
-    private void reloadScene()
-    {
-        SceneManager.LoadScene("Scene0");
     }
 }
