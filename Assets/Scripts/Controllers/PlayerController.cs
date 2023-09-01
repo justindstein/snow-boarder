@@ -14,20 +14,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce; // 7.5
 
     private Rigidbody2D rigidBody;
+    private SurfaceEffector2D surfaceEffector2D;
 
+    private float inputVertical;
     private float inputHorizontal;
     private bool inputJump;
+
+    private static float MIN_SPEED = 3f;
+    private static float MAX_SPEED = 25f;
 
     void Start()
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
+        //this.surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
+        this.surfaceEffector2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<SurfaceEffector2D>();
     }
 
     void Update()
     {
-        //this.inputVertical = Input.GetAxisRaw("Vertical");
+        this.inputVertical = Input.GetAxisRaw("Vertical");
         this.inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space)) this.inputJump = true;
+        //if (Input.GetKey(KeyCode.UpArrow)) this.inputSpeedBoost = true;
     }
 
     private void FixedUpdate()
@@ -44,6 +52,15 @@ public class PlayerController : MonoBehaviour
         {
             this.jump();
         }
+
+        // Speed boost
+        this.surfaceEffector2D.speed = Mathf.Min(
+            Mathf.Max(
+                PlayerController.MIN_SPEED
+                , this.surfaceEffector2D.speed + this.inputVertical
+            )
+            , PlayerController.MAX_SPEED
+        );
     }
 
     private void jump()
