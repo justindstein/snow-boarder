@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     private static float MIN_SPEED = 3f;
     private static float MAX_SPEED = 25f;
+    private static float ACCELERATION_RATE = 10f;
 
     void Start()
     {
@@ -53,11 +54,11 @@ public class PlayerController : MonoBehaviour
             this.jump();
         }
 
-        // Speed boost
+        // Speed acceleration/deceleration
         this.surfaceEffector2D.speed = Mathf.Min(
             Mathf.Max(
                 PlayerController.MIN_SPEED
-                , this.surfaceEffector2D.speed + this.inputVertical
+                , this.surfaceEffector2D.speed + (this.inputVertical * Time.deltaTime * PlayerController.ACCELERATION_RATE)
             )
             , PlayerController.MAX_SPEED
         );
@@ -68,5 +69,10 @@ public class PlayerController : MonoBehaviour
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
         this.inputJump = false;
         this.jumpEffects.Play();
+    }
+
+    private void speedBoost()
+    {
+
     }
 }
