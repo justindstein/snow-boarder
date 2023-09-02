@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float reloadDelay;
     [SerializeField] private ParticleSystem jumpEffects;
 
-    //[SerializeField] private float rotateVelocity; // -2
     [SerializeField] private float torqueForce; // -5
     [SerializeField] private float jumpForce; // 7.5
 
@@ -24,11 +21,14 @@ public class PlayerController : MonoBehaviour
     private static float MAX_SPEED = 25f;
     private static float ACCELERATION_RATE = 10f;
 
-    void Start()
+    private static float DEFAULT_SPEED;
+    private static float EXPONENTIAL_SPEED_NORMALIZATION_RATE = 10f;
+
+    void Awake()
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
-        //this.surfaceEffector2D = FindObjectOfType<SurfaceEffector2D>();
         this.surfaceEffector2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<SurfaceEffector2D>();
+        PlayerController.DEFAULT_SPEED = this.surfaceEffector2D.speed;
     }
 
     void Update()
@@ -36,10 +36,9 @@ public class PlayerController : MonoBehaviour
         this.inputVertical = Input.GetAxisRaw("Vertical");
         this.inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (Input.GetKeyDown(KeyCode.Space)) this.inputJump = true;
-        //if (Input.GetKey(KeyCode.UpArrow)) this.inputSpeedBoost = true;
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         //Debug.Log(string.Format("[Horizontal: {0}] [Vertical: {1}] [isJump {2}] ", this.inputHorizontal, this.inputVertical, this.inputJump));
 
@@ -54,7 +53,32 @@ public class PlayerController : MonoBehaviour
             this.jump();
         }
 
-        // Speed acceleration/deceleration
+        // Speed change
+        if (this.inputVertical != 0)
+        {
+            this.updateSpeed();
+        }
+        else if (!Mathf.Approximately(this.surfaceEffector2D.speed, PlayerController.DEFAULT_SPEED))
+        {
+            normalizeSpeed();
+        }
+
+    }
+
+    // TODO: Document
+    void jump()
+    {
+        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
+        this.inputJump = false;
+        this.jumpEffects.Play();
+    }
+
+    // TODO: Document and break-down into smaller pieces.
+    // Input-driven speedup/slowdown
+    void updateSpeed()
+    {
+        float oldSpeed = this.surfaceEffector2D.speed;
+
         this.surfaceEffector2D.speed = Mathf.Min(
             Mathf.Max(
                 PlayerController.MIN_SPEED
@@ -62,17 +86,22 @@ public class PlayerController : MonoBehaviour
             )
             , PlayerController.MAX_SPEED
         );
+
+        Debug.Log(string.Format("PlayerController.updateSpeed user input speed change [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
     }
 
-    private void jump()
+    // TODO: Document and break-down into smaller pieces.
+    // Player speed normalized back to DEFAULT_SPEED in the absence of user input
+    void normalizeSpeed()
     {
-        this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * this.jumpForce));
-        this.inputJump = false;
-        this.jumpEffects.Play();
-    }
+        float oldSpeed = this.surfaceEffector2D.speed;
+        
+        float speedDifferential = (this.surfaceEffector2D.speed - PlayerController.DEFAULT_SPEED) / PlayerController.EXPONENTIAL_SPEED_NORMALIZATION_RATE;
+        this.surfaceEffector2D.speed = Mathf.Approximately(PlayerController.DEFAULT_SPEED, this.surfaceEffector2D.speed - speedDifferential)
+            ? PlayerController.DEFAULT_SPEED
+            : this.surfaceEffector2D.speed - speedDifferential
+        ;
 
-    private void speedBoost()
-    {
-
+        Debug.Log(string.Format("PlayerController.normalizeSpeed [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
     }
 }
