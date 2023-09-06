@@ -614,7 +614,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  CollisionCandidates:
+  TriggerCandidates:
   - {fileID: 1785161998}
 --- !u!199 &84058181
 ParticleSystemRenderer:
@@ -6966,6 +6966,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  TriggerCandidates:
+  - {fileID: 1785161998}
 --- !u!58 &527836699
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -19096,6 +19098,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  TriggerCandidates:
+  - {fileID: 527836695}
 --- !u!61 &1770461106
 BoxCollider2D:
   m_ObjectHideFlags: 0

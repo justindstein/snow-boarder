@@ -8,12 +8,12 @@ public class HeadTrigger : MonoBehaviour
     [Tooltip("Event invoked when collision occurs.")]
     public UnityEvent HeadCollisionEvent;
 
-    [Tooltip("Collection of GameObjects that will produce a HeadCollisionEvent when collided with.")]
-    public GameObject[] CollisionCandidates;
+    [Tooltip("GameObjects to interact with.")]
+    public GameObject[] TriggerCandidates;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (new HashSet<GameObject>(this.CollisionCandidates).Contains(other.gameObject))
+        if (new HashSet<GameObject>(this.TriggerCandidates).Contains(other.gameObject))
         {
             this.HeadCollisionEvent.Invoke();
         }
