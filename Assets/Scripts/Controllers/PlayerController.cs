@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     private void normalizeSpeed()
     {
         float oldSpeed = this.surfaceEffector2D.speed;
-        
+
         float speedDifferential = (this.surfaceEffector2D.speed - PlayerController.defaultSpeed) / PlayerController.EXPONENTIAL_SPEED_NORMALIZATION_RATE;
         this.surfaceEffector2D.speed = Mathf.Approximately(PlayerController.defaultSpeed, this.surfaceEffector2D.speed - speedDifferential)
             ? PlayerController.defaultSpeed
@@ -107,13 +107,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnPlayerGrounded(Component sender, object data)
     {
-        Debug.Log("OnPlayerGrounded");
+        Debug.Log(string.Format("PlayerController.OnPlayerGrounded [sender: {0}] [data: {1}]!", sender, data));
         this.groundedEffects.Play();
     }
 
     public void OnPlayerAirborn(Component sender, object data)
     {
-        Debug.Log("OnPlayerAirborn");
+        Debug.Log(string.Format("PlayerController.OnPlayerAirborn [sender: {0}] [data: {1}]!", sender, data));
         this.groundedEffects.Stop();
     }
 }

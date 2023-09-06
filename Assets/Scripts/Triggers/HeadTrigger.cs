@@ -7,6 +7,7 @@ public class HeadTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("HeadTrigger.OnTriggerEnter2D");
         this.HeadCollision.Raise(this, other);
     }
 }
