@@ -7,6 +7,6 @@ public class FinishLineTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        this.FinishLineCrossed.Raise(this, other);
+        this.FinishLineCrossed.Raise();
     }
 }
