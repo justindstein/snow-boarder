@@ -105,15 +105,15 @@ public class PlayerController : MonoBehaviour
         Debug.Log(string.Format("PlayerController.normalizeSpeed [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
     }
 
-    public void OnPlayerGrounded(Component sender, object data)
-    {
-        Debug.Log(string.Format("PlayerController.OnPlayerGrounded [sender: {0}] [data: {1}]!", sender, data));
-        this.groundedEffects.Play();
-    }
+    //public void OnPlayerGrounded(Component sender, object data)
+    //{
+    //    Debug.Log(string.Format("PlayerController.OnPlayerGrounded [sender: {0}] [data: {1}]!", sender, data));
+    //    this.groundedEffects.Play();
+    //}
 
-    public void OnPlayerAirborn(Component sender, object data)
-    {
-        Debug.Log(string.Format("PlayerController.OnPlayerAirborn [sender: {0}] [data: {1}]!", sender, data));
-        this.groundedEffects.Stop();
-    }
+    //public void OnPlayerAirborn(Component sender, object data)
+    //{
+    //    Debug.Log(string.Format("PlayerController.OnPlayerAirborn [sender: {0}] [data: {1}]!", sender, data));
+    //    this.groundedEffects.Stop();
+    //}
 }
