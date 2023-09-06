@@ -8,11 +8,13 @@ public class GroundedTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D()
     {
+        Debug.Log("OnTriggerEnter2D");
         this.PlayerGrounded.Raise();
     }
 
     private void OnTriggerExit2D()
     {
+        Debug.Log("OnTriggerExit2D");
         this.PlayerAirborn.Raise();
     }
 }
