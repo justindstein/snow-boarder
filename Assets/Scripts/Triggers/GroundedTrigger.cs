@@ -1,20 +1,20 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GroundedTrigger : MonoBehaviour
 {
-    [Header("Events")]
-    public GameEvent PlayerGrounded;
-    public GameEvent PlayerAirborn;
+    public UnityEvent PlayerGroundedEvent;
+    public UnityEvent PlayerAirbornEvent;
 
     private void OnTriggerEnter2D()
     {
         Debug.Log("OnTriggerEnter2D");
-        this.PlayerGrounded.Raise();
+        this.PlayerGroundedEvent.Invoke();
     }
 
     private void OnTriggerExit2D()
     {
         Debug.Log("OnTriggerExit2D");
-        this.PlayerAirborn.Raise();
+        this.PlayerAirbornEvent.Invoke();
     }
 }
