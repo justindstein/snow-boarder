@@ -1,20 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class ReloadController : MonoBehaviour
 {
-    public float crashReloadDelay;
-
-    public float finishReloadDelay;
-
-    public void OnCrashReloadScene()
+    public void ReloadScene(float delay)
     {
-        Invoke("reloadScene", this.crashReloadDelay);
-    }
-
-    public void OnFinishReloadScene()
-    {
-        Invoke("reloadScene", this.finishReloadDelay);
+        Invoke("reloadScene", delay);
     }
 
     private void reloadScene()

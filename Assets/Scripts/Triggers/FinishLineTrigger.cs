@@ -1,12 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FinishLineTrigger : MonoBehaviour
 {
-    [Header("Events")]
-    public GameEvent FinishLineCrossed;
+    public UnityEvent FinishLineCrossedEvent;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        this.FinishLineCrossed.Raise();
+        this.FinishLineCrossedEvent.Invoke();
     }
 }
