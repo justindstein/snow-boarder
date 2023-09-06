@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,9 +10,18 @@ public class FinishLineTrigger : MonoBehaviour
     [Tooltip("GameObjects to interact with.")]
     public GameObject[] TriggerCandidates;
 
-    // TODO: move HashSet instantiation to Awake
+    private HashSet<GameObject> triggerCandidates;
+
+    private void Awake()
+    {
+        this.triggerCandidates = new HashSet<GameObject>(this.TriggerCandidates);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        this.FinishLineCrossedEvent.Invoke();
+        if (this.triggerCandidates.Contains(other.gameObject))
+        {
+            this.FinishLineCrossedEvent.Invoke();
+        }
     }
 }

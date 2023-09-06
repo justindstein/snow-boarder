@@ -11,9 +11,16 @@ public class HeadTrigger : MonoBehaviour
     [Tooltip("GameObjects to interact with.")]
     public GameObject[] TriggerCandidates;
 
+    private HashSet<GameObject> triggerCandidates;
+
+    private void Awake()
+    {
+        this.triggerCandidates = new HashSet<GameObject>(this.TriggerCandidates);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (new HashSet<GameObject>(this.TriggerCandidates).Contains(other.gameObject))
+        if (this.triggerCandidates.Contains(other.gameObject))
         {
             this.HeadCollisionEvent.Invoke();
         }

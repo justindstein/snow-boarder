@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,15 +13,26 @@ public class GroundedTrigger : MonoBehaviour
     [Tooltip("GameObjects to interact with.")]
     public GameObject[] TriggerCandidates;
 
-    // TODO: move HashSet instantiation to Awake
-    // TODO: add Collider2D other args
-    private void OnTriggerEnter2D()
+    private HashSet<GameObject> triggerCandidates;
+
+    private void Awake()
     {
-        this.PlayerGroundedEvent.Invoke();
+        this.triggerCandidates = new HashSet<GameObject>(this.TriggerCandidates);
     }
 
-    private void OnTriggerExit2D()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        this.PlayerAirbornEvent.Invoke();
+        if (this.triggerCandidates.Contains(other.gameObject))
+        {
+            this.PlayerGroundedEvent.Invoke();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (this.triggerCandidates.Contains(other.gameObject))
+        {
+            this.PlayerAirbornEvent.Invoke();
+        }
     }
 }
