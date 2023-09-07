@@ -3,8 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerJump : MonoBehaviour
 {
-    [Tooltip("Vertical force applied to player when jumping")]
-    public float jumpForce;
+    public FloatVariable jumpForce;
 
     public IntVariable RemainingJumps;
 
@@ -35,7 +34,7 @@ public class PlayerJump : MonoBehaviour
         // Player jump
         if (this.inputJump && this.RemainingJumps.Value > 0)
         {
-            this.Jump(this.jumpForce);
+            this.Jump(this.jumpForce.Value);
             this.RemainingJumps.ApplyChange(-1);
             this.PlayerJumpEvent.Invoke();
         }

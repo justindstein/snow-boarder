@@ -2,20 +2,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Tooltip("Speed at which player rotates.")]
-    public float TorqueForce;
+    public FloatVariable TorqueForce;
 
-    [Tooltip("Rate at which speed normlizes to default speed when no user input is provided.")]
-    public float SpeedNormalizationRate;
+    public FloatVariable SpeedNormalizationRate;
 
-    [Tooltip("Minimum player speed.")]
-    public float MinimumSpeed;
+    public FloatVariable MinSpeed;
 
-    [Tooltip("Maximum player speed.")]
-    public float MaximumSpeed;
+    public FloatVariable MaxSpeed;
 
-    [Tooltip("Rate at which user input speeds up slows down player.")]
-    public float AccelerationRate;
+    public FloatVariable AccelerationRate;
 
     public FloatVariable DefaultSpeed;
 
@@ -40,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Player rotation
-        this.rigidBody.AddTorque(this.inputHorizontal * this.TorqueForce);
+        this.rigidBody.AddTorque(this.inputHorizontal * this.TorqueForce.Value);
 
         // User-input induced speed change
         if (this.inputVertical != 0)
@@ -51,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         // Speed normalization
         else if (!Mathf.Approximately(this.surfaceEffector2D.speed, this.DefaultSpeed.Value))
         {
-            normalizeSpeed(this.SpeedNormalizationRate);
+            normalizeSpeed(this.SpeedNormalizationRate.Value);
         }
     }
 
@@ -63,10 +58,10 @@ public class PlayerMovement : MonoBehaviour
 
         this.surfaceEffector2D.speed = Mathf.Min(
             Mathf.Max(
-                this.MinimumSpeed
-                , this.surfaceEffector2D.speed + (this.inputVertical * Time.deltaTime * this.AccelerationRate)
+                this.MinSpeed.Value
+                , this.surfaceEffector2D.speed + (this.inputVertical * Time.deltaTime * this.AccelerationRate.Value)
             )
-            , this.MaximumSpeed
+            , this.MaxSpeed.Value
         );
 
         Debug.Log(string.Format("PlayerController.updateSpeed user input speed change [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));

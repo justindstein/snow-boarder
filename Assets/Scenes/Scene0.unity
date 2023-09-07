@@ -6541,11 +6541,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a366d002dcfc44ba3adfb7e96f0c04fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TorqueForce: -10
-  SpeedNormalizationRate: 10
-  MinimumSpeed: 3
-  MaximumSpeed: 28
-  AccelerationRate: 10
+  TorqueForce: {fileID: 11400000, guid: 6c446359ff18846c38ef0866de8c15d8, type: 2}
+  SpeedNormalizationRate: {fileID: 11400000, guid: c69d1a4f2f1564dcc853033489da9c91, type: 2}
+  MinSpeed: {fileID: 11400000, guid: 85ec8ab5f56c64ca191dd2b0935e5247, type: 2}
+  MaxSpeed: {fileID: 11400000, guid: 666ffd402e5e44c4a9f6579035bd2e4c, type: 2}
+  AccelerationRate: {fileID: 11400000, guid: 96ad599d83898426e820a6aa78f901a3, type: 2}
   DefaultSpeed: {fileID: 11400000, guid: 9a35cb89c1e924417ad7761fe70db835, type: 2}
 --- !u!114 &470829358
 MonoBehaviour:
@@ -6559,7 +6559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42645172430b45a4b71f05f9edf8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 11
+  jumpForce: {fileID: 11400000, guid: 42634168f66e84604837c064422bdf62, type: 2}
   RemainingJumps: {fileID: 11400000, guid: 49021b64fda3d4097b6e320c3afccab3, type: 2}
   PlayerJumpEvent:
     m_PersistentCalls:
