@@ -14,7 +14,6 @@ public class PlayerJump : MonoBehaviour
 
     private bool inputJump;
 
-
     private void Awake()
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
@@ -30,7 +29,6 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
         // Player jump
         if (this.inputJump && this.RemainingJumps.Value > 0)
         {
@@ -46,6 +44,10 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increase vertical velocity of the player.
+    /// </summary>
+    /// <param name="force"></param>
     private void Jump(float force)
     {
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * force));

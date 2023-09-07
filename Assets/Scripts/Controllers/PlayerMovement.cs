@@ -40,47 +40,63 @@ public class PlayerMovement : MonoBehaviour
         // User-input induced speed change
         if (this.inputVertical != 0)
         {
-            this.updateSpeed();
+            float oldSpeed = this.surfaceEffector2D.speed;
+            this.surfaceEffector2D.speed = this.getUpdatedSpeed(this.inputVertical, this.AccelerationRate.Value, this.surfaceEffector2D.speed, this.MinSpeed.Value, this.MaxSpeed.Value);
+            Debug.Log(string.Format("PlayerController.updateSpeed user input speed change [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
         }
 
         // Speed normalization
-        else if (!Mathf.Approximately(this.surfaceEffector2D.speed, this.DefaultSpeed.Value))
+        else if (!this.isDefaultSpeed(this.surfaceEffector2D.speed, this.DefaultSpeed.Value))
         {
-            normalizeSpeed(this.SpeedNormalizationRate.Value);
+            float oldSpeed = this.surfaceEffector2D.speed;
+            this.surfaceEffector2D.speed = getNormalizedSpeed(this.surfaceEffector2D.speed, this.DefaultSpeed.Value, this.SpeedNormalizationRate.Value);
+            Debug.Log(string.Format("PlayerController.normalizeSpeed [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
         }
     }
 
-    // TODO: Document and break-down into smaller pieces.
-    // Input-driven speedup/slowdown
-    private void updateSpeed()
+    /// <summary>
+    /// Calculate updated speed based on user input not to exceed maxSpeed or to fall below minSpeed.
+    /// </summary>
+    /// <param name="inputVertical"></param>
+    /// <param name="accelerationRate"></param>
+    /// <param name="currentSpeed"></param>
+    /// <param name="minSpeed"></param>
+    /// <param name="maxSpeed"></param>
+    /// <returns></returns>
+    private float getUpdatedSpeed(float inputVertical, float accelerationRate, float currentSpeed, float minSpeed, float maxSpeed)
     {
-        float oldSpeed = this.surfaceEffector2D.speed;
-
-        this.surfaceEffector2D.speed = Mathf.Min(
+        return Mathf.Min(
             Mathf.Max(
-                this.MinSpeed.Value
-                , this.surfaceEffector2D.speed + (this.inputVertical * Time.deltaTime * this.AccelerationRate.Value)
+                minSpeed
+                , currentSpeed + (inputVertical * Time.deltaTime * accelerationRate)
             )
-            , this.MaxSpeed.Value
+            , maxSpeed
         );
-
-        Debug.Log(string.Format("PlayerController.updateSpeed user input speed change [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
     }
 
-    // TODO: add defaultSpeed as a system variable
-
-    // TODO: Document and break-down into smaller pieces.
-    // Player speed normalized back to DEFAULT_SPEED in the absence of user input
-    private void normalizeSpeed(float speedNormalizationRate)
+    /// <summary>
+    /// Determines if currentSpeed is approximately equal to defaultSpeed.
+    /// </summary>
+    /// <param name="currentSpeed"></param>
+    /// <param name="defaultSpeed"></param>
+    /// <returns>True if the two speeds are approximately equal.</returns>
+    private bool isDefaultSpeed(float currentSpeed, float defaultSpeed)
     {
-        float oldSpeed = this.surfaceEffector2D.speed;
+        return Mathf.Approximately(currentSpeed, defaultSpeed);
+    }
 
-        float speedDifferential = (this.surfaceEffector2D.speed - this.DefaultSpeed.Value) / speedNormalizationRate;
-        this.surfaceEffector2D.speed = Mathf.Approximately(this.DefaultSpeed.Value, this.surfaceEffector2D.speed - speedDifferential)
-            ? this.DefaultSpeed.Value
-            : this.surfaceEffector2D.speed - speedDifferential
+    /// <summary>
+    /// Normalize player's speed back towards defaultSpeed
+    /// </summary>
+    /// /// <param name="currentSpeed"></param>
+    /// <param name="defaultSpeed"></param>
+    /// <param name="speedNormalizationRate"></param>
+    private float getNormalizedSpeed(float currentSpeed, float defaultSpeed, float speedNormalizationRate)
+    {
+        float speedDifferential = (currentSpeed - defaultSpeed) / speedNormalizationRate;
+        return Mathf.Approximately(defaultSpeed, currentSpeed - speedDifferential)
+            ? defaultSpeed
+            : currentSpeed - speedDifferential
         ;
-
-        Debug.Log(string.Format("PlayerController.normalizeSpeed [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
     }
 }
