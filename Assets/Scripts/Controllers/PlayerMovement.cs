@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     public FloatVariable DefaultSpeed;
 
+    public BoolVariable IsAlive;
+
     private Rigidbody2D rigidBody;
     private SurfaceEffector2D surfaceEffector2D;
 
@@ -24,12 +26,15 @@ public class PlayerMovement : MonoBehaviour
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.surfaceEffector2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<SurfaceEffector2D>();
+        this.IsAlive.SetValue(true);
     }
 
     private void Update()
     {
-        this.inputVertical = Input.GetAxisRaw("Vertical");
-        this.inputHorizontal = Input.GetAxisRaw("Horizontal");
+        if(this.IsAlive.Value) {
+            this.inputVertical = Input.GetAxisRaw("Vertical");
+            this.inputHorizontal = Input.GetAxisRaw("Horizontal");
+        }
     }
 
     private void FixedUpdate()

@@ -7,6 +7,8 @@ public class PlayerJump : MonoBehaviour
 
     public IntVariable RemainingJumps;
 
+    public BoolVariable IsAlive;
+
     [Tooltip("Event invoked when player jumps.")]
     public UnityEvent PlayerJumpEvent;
 
@@ -21,7 +23,7 @@ public class PlayerJump : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && this.IsAlive.Value)
         {
             this.inputJump = true;
         }
