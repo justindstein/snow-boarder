@@ -6460,9 +6460,8 @@ GameObject:
   - component: {fileID: 470829352}
   - component: {fileID: 470829356}
   - component: {fileID: 470829361}
-  - component: {fileID: 470829355}
-  - component: {fileID: 470829358}
   - component: {fileID: 470829357}
+  - component: {fileID: 470829358}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6515,23 +6514,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &470829355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 470829348}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 885b77cd5bfbf4249a077579a5b5905c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloadDelay: 0
-  jumpEffects: {fileID: 1609463191}
-  groundedEffects: {fileID: 0}
-  torqueForce: -10
-  jumpForce: 9
 --- !u!114 &470829356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6560,6 +6542,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TorqueForce: -10
+  SpeedNormalizationRate: 10
+  MinimumSpeed: 3
+  MaximumSpeed: 28
+  AccelerationRate: 10
 --- !u!114 &470829358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6572,6 +6558,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42645172430b45a4b71f05f9edf8258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 11
+  RemainingJumps: {fileID: 11400000, guid: 49021b64fda3d4097b6e320c3afccab3, type: 2}
   PlayerJumpEvent:
     m_PersistentCalls:
       m_Calls:
@@ -6611,7 +6599,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  jumpForce: 9
 --- !u!82 &470829361
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6625,7 +6612,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 39c154beb784d4e0baaa9e528e77b44f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.19
-  m_Pitch: 1
+  m_Pitch: 0.75
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -7098,6 +7085,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 49021b64fda3d4097b6e320c3afccab3, type: 2}
+        m_TargetAssemblyTypeName: IntVariable, Assembly-CSharp
+        m_MethodName: SetValue
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: d66c25d04197b4a1189be1b0bfccbb9a, type: 2}
+          m_ObjectArgumentAssemblyTypeName: IntVariable, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8306,7 +8305,7 @@ Transform:
   m_GameObject: {fileID: 991482929}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.800283, y: 5.28, z: -10}
+  m_LocalPosition: {x: -10.782363, y: 5.28, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

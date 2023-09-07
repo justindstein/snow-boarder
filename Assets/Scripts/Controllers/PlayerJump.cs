@@ -3,13 +3,18 @@ using UnityEngine.Events;
 
 public class PlayerJump : MonoBehaviour
 {
-    public UnityEvent PlayerJumpEvent;
+    [Tooltip("Vertical force applied to player when jumping")]
+    public float jumpForce;
 
-    public float jumpForce; // 7.5
+    public IntVariable RemainingJumps;
+
+    [Tooltip("Event invoked when player jumps.")]
+    public UnityEvent PlayerJumpEvent;
 
     private Rigidbody2D rigidBody;
 
     private bool inputJump;
+
 
     private void Awake()
     {
@@ -26,18 +31,23 @@ public class PlayerJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // TODO: Jump only if player is on ground
         // TODO: jump on spacebar release, if space bar is held down for longer, then increase height of jump slightly
         // Player jump
-        if (this.inputJump)
+        if (this.inputJump && this.RemainingJumps.Value > 0)
         {
             this.Jump(this.jumpForce);
+            this.RemainingJumps.ApplyChange(-1);
             this.PlayerJumpEvent.Invoke();
+        }
+
+        // Player has attempted to jump but they have no remaining jumps.
+        else if(this.inputJump)
+        {
+            this.inputJump = false;
         }
     }
 
-    // TODO: Document
-    public void Jump(float force)
+    private void Jump(float force)
     {
         this.rigidBody.velocity = new Vector2(this.rigidBody.velocity.x, (Vector2.up.y * force));
         this.inputJump = false;
