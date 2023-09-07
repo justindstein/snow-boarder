@@ -12,7 +12,7 @@ public class SceneLoader : MonoBehaviour
     /// <param name="delay"></param>
     public void LoadScene(float delay)
     {
-        Invoke("reloadScene", delay);
+        Invoke("LoadScene", delay);
     }
 
     /// <summary>
