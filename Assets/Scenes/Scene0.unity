@@ -6546,6 +6546,7 @@ MonoBehaviour:
   MinimumSpeed: 3
   MaximumSpeed: 28
   AccelerationRate: 10
+  DefaultSpeed: {fileID: 11400000, guid: 9a35cb89c1e924417ad7761fe70db835, type: 2}
 --- !u!114 &470829358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24180,6 +24181,7 @@ GameObject:
   - component: {fileID: 1785161999}
   - component: {fileID: 1785162002}
   - component: {fileID: 1785162003}
+  - component: {fileID: 1785162004}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -26840,6 +26842,19 @@ SurfaceEffector2D:
   m_UseContactForce: 0
   m_UseFriction: 1
   m_UseBounce: 1
+--- !u!114 &1785162004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785161998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844236f066dfc45c6b74382801e9e97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultSpeed: {fileID: 11400000, guid: 9a35cb89c1e924417ad7761fe70db835, type: 2}
 --- !u!1001 &1786239526
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,9 +17,10 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Rate at which user input speeds up slows down player.")]
     public float AccelerationRate;
 
+    public FloatVariable DefaultSpeed;
+
     private Rigidbody2D rigidBody;
     private SurfaceEffector2D surfaceEffector2D;
-    private float defaultSpeed; // TODO: convert to a system variable
 
     private float inputVertical;
     private float inputHorizontal;
@@ -28,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
         this.surfaceEffector2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<SurfaceEffector2D>();
-        this.defaultSpeed = this.surfaceEffector2D.speed;
     }
 
     private void Update()
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Speed normalization
-        else if (!Mathf.Approximately(this.surfaceEffector2D.speed, this.defaultSpeed))
+        else if (!Mathf.Approximately(this.surfaceEffector2D.speed, this.DefaultSpeed.Value))
         {
             normalizeSpeed(this.SpeedNormalizationRate);
         }
@@ -80,9 +80,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float oldSpeed = this.surfaceEffector2D.speed;
 
-        float speedDifferential = (this.surfaceEffector2D.speed - this.defaultSpeed) / speedNormalizationRate;
-        this.surfaceEffector2D.speed = Mathf.Approximately(this.defaultSpeed, this.surfaceEffector2D.speed - speedDifferential)
-            ? this.defaultSpeed
+        float speedDifferential = (this.surfaceEffector2D.speed - this.DefaultSpeed.Value) / speedNormalizationRate;
+        this.surfaceEffector2D.speed = Mathf.Approximately(this.DefaultSpeed.Value, this.surfaceEffector2D.speed - speedDifferential)
+            ? this.DefaultSpeed.Value
             : this.surfaceEffector2D.speed - speedDifferential
         ;
 
