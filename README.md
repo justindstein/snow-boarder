@@ -11,7 +11,7 @@ spacebar - Jump
 ### Gameplay Features
 - Snowboard down the mountain while doing flips and tricks.
 - Be careful, the game is over if you land on your head.
-- Your character can do extra jumps in the air, recharge your extra jumps by landing back on the ground.
+- Your character can perform extra jumps in the air - recharge your jumps by landing on the ground.
 - Reach the bottom of the mountain and cross the finish line to declare victory!
 
 ### Gameplay Demo
