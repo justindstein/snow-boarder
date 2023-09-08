@@ -18,7 +18,7 @@ spacebar - Jump
 
 Playable on [itch.io](https://justindstein.itch.io/snow-boarder).
 
-https://github.com/justindstein/delivery-driver/assets/11355547/d8ccf156-b814-4301-b90a-ac9b11a36fb8
+https://github.com/justindstein/snow-boarder/assets/11355547/c18b7c42-16a1-467c-bfe5-37d7b3cfa9e4
 
 ### License
 
