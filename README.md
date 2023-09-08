@@ -2,11 +2,11 @@
 This project is a 2d snowboarding platformer written using the Unity game engine. This game was built primarily for self-educational purposes with guidence from [this tutorial](https://www.udemy.com/course/unitycourse/).
 
 ### Controls
-w - Speed up
-a - Rotate counterclockwise
-s - Speed down
-d - Rotate clockwise
-spacebar - Jump
+w - Speed up  
+a - Rotate counterclockwise  
+s - Speed down  
+d - Rotate clockwise  
+spacebar - Jump  
 
 ### Gameplay Features
 - Snowboard down the mountain while doing flips and tricks.
