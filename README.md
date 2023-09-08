@@ -1,5 +1,5 @@
 # snow-boarder
-This project is a 2d snowboarding platformer written using the Unity game engine. This game was built primarily for self-educational purposes with guidence from [this tutorial](https://www.udemy.com/course/unitycourse/).
+This project is a 2d snowboarding platformer written using the Unity game engine. This game was built primarily for self-educational purposes with guidance from [this tutorial](https://www.udemy.com/course/unitycourse/).
 
 ### Controls
 w - Speed up  
