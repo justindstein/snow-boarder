@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerJump : MonoBehaviour
 {
-    public FloatVariable jumpForce;
+    public FloatVariable JumpForce;
 
     public IntVariable RemainingJumps;
 
@@ -34,16 +34,17 @@ public class PlayerJump : MonoBehaviour
         // Player jump
         if (this.inputJump && this.RemainingJumps.Value > 0)
         {
-            this.Jump(this.jumpForce.Value);
+            this.Jump(this.JumpForce.Value);
             this.RemainingJumps.ApplyChange(-1);
             this.PlayerJumpEvent.Invoke();
+
+            #if UNITY_EDITOR
+                Debug.Log(string.Format("PlayerJump.Jump [JumpForce: {0}] [RemainingJumps: {1}]", this.JumpForce.Value, this.RemainingJumps.Value));
+            #endif
         }
 
-        // Player has attempted to jump but they have no remaining jumps.
-        else if(this.inputJump)
-        {
-            this.inputJump = false;
-        }
+        // Cleanup
+        this.inputJump = false;
     }
 
     /// <summary>

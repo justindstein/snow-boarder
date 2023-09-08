@@ -4,6 +4,8 @@ using UnityEngine.Events;
 
 public class HeadTrigger : MonoBehaviour
 {
+    public BoolVariable IsAlive;
+
     [Tooltip("Event invoked when collision occurs.")]
     public UnityEvent HeadCollisionEvent;
 
@@ -19,7 +21,7 @@ public class HeadTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (this.triggerCandidates.Contains(other.gameObject))
+        if (this.triggerCandidates.Contains(other.gameObject) && this.IsAlive.Value)
         {
             this.HeadCollisionEvent.Invoke();
         }

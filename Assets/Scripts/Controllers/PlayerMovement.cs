@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject Ground;
+
     public FloatVariable TorqueForce;
 
     public FloatVariable SpeedNormalizationRate;
@@ -17,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public BoolVariable IsAlive;
 
     private Rigidbody2D rigidBody;
-    private SurfaceEffector2D surfaceEffector2D;
+    private GroundSpeed groundSpeed;
 
     private float inputVertical;
     private float inputHorizontal;
@@ -25,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         this.rigidBody = this.GetComponent<Rigidbody2D>();
-        this.surfaceEffector2D = GameObject.FindGameObjectWithTag("Ground").GetComponent<SurfaceEffector2D>();
+        this.groundSpeed = this.Ground.GetComponent<GroundSpeed>();
         this.IsAlive.SetValue(true);
     }
 
@@ -39,24 +41,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        float defaultSpeed = this.IsAlive.Value ? this.DefaultSpeed.Value : 0;
+
         // Player rotation
         this.rigidBody.AddTorque(this.inputHorizontal * this.TorqueForce.Value);
 
         // User-input induced speed change
         if (this.inputVertical != 0)
         {
-            float oldSpeed = this.surfaceEffector2D.speed;
-            this.surfaceEffector2D.speed = this.getUpdatedSpeed(this.inputVertical, this.AccelerationRate.Value, this.surfaceEffector2D.speed, this.MinSpeed.Value, this.MaxSpeed.Value);
-            Debug.Log(string.Format("PlayerController.updateSpeed user input speed change [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
+            float oldSpeed = this.groundSpeed.GetGroundSpeed();
+            this.groundSpeed.SetGroundSpeed(this.getUpdatedSpeed(this.inputVertical, this.AccelerationRate.Value, this.groundSpeed.GetGroundSpeed(), this.MinSpeed.Value, this.MaxSpeed.Value));
+
+        #if UNITY_EDITOR
+            Debug.Log(string.Format("PlayerMovement.getUpdatedSpeed user input speed change [from: {0}] [to: {1}]", oldSpeed, this.groundSpeed.GetGroundSpeed()));
+        #endif
         }
 
         // Speed normalization
-        else if (!this.isDefaultSpeed(this.surfaceEffector2D.speed, this.DefaultSpeed.Value))
+        else if (!this.isDefaultSpeed(this.groundSpeed.GetGroundSpeed(), defaultSpeed))
         {
-            float oldSpeed = this.surfaceEffector2D.speed;
-            this.surfaceEffector2D.speed = getNormalizedSpeed(this.surfaceEffector2D.speed, this.DefaultSpeed.Value, this.SpeedNormalizationRate.Value);
-            Debug.Log(string.Format("PlayerController.normalizeSpeed [from: {0}] [to: {1}]!", oldSpeed, this.surfaceEffector2D.speed));
+            float oldSpeed = this.groundSpeed.GetGroundSpeed();
+            this.groundSpeed.SetGroundSpeed(getNormalizedSpeed(this.groundSpeed.GetGroundSpeed(), defaultSpeed, this.SpeedNormalizationRate.Value));
+        #if UNITY_EDITOR
+            Debug.Log(string.Format("PlayerMovement.getNormalizedSpeed [from: {0}] [to: {1}]", oldSpeed, this.groundSpeed.GetGroundSpeed()));
+        #endif
         }
+
+        // Cleanup
+        this.inputVertical = 0;
+        this.inputHorizontal = 0;
     }
 
     /// <summary>
